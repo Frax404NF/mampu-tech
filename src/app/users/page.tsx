@@ -1,13 +1,31 @@
 import { Suspense } from "react";
-import { fetchUsers } from "@/lib/api";
+import { ApiError, fetchUsers, fetchTodos } from "@/lib/api";
+import { activityFor, groupTodosByUser } from "@/lib/todos";
+import type { UserRow } from "@/types/user";
 import UsersTable from "@/components/users/UsersTable";
 import UserTableSkeleton from "@/components/users/UserTableSkeleton";
 
+async function fetchTodosOrNull() {
+  try {
+    return await fetchTodos();
+  } catch (err) {
+    if (err instanceof ApiError) return null;
+    throw err;
+  }
+}
+
 async function UsersDataFetcher() {
-  // throw new Error("Simulated API error states.");
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
-  const users = await fetchUsers();
-  return <UsersTable users={users} />;
+  const [users, todos] = await Promise.all([fetchUsers(), fetchTodosOrNull()]);
+
+  const todosAvailable = todos !== null;
+  const todosByUser = todosAvailable ? groupTodosByUser(todos) : null;
+
+  const rows: UserRow[] = users.map((user) => ({
+    user,
+    activity: todosByUser ? activityFor(todosByUser.get(user.id)) : null,
+  }));
+
+  return <UsersTable rows={rows} todosAvailable={todosAvailable} />;
 }
 
 export default function UsersPage() {
