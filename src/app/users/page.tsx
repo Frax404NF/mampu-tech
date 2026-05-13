@@ -1,20 +1,11 @@
 import { Suspense } from "react";
-import { User } from "@/types/user";
+import { fetchUsers } from "@/lib/api";
 import UsersTable from "@/components/users/UsersTable";
 import UserTableSkeleton from "@/components/users/UserTableSkeleton";
 
-async function fetchUsers(): Promise<User[]> {
-  // throw new Error("Simulated API error states.");
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  
-  const res = await fetch("https://jsonplaceholder.typicode.com/users", {
-    next: { revalidate: 60 },
-  });
-  if (!res.ok) throw new Error("Failed to fetch users");
-  return res.json();
-}
-
 async function UsersDataFetcher() {
+  // throw new Error("Simulated API error states.");
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const users = await fetchUsers();
   return <UsersTable users={users} />;
 }
