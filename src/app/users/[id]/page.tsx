@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { fetchUser, ApiError } from "@/lib/api";
+import { fetchTodosForUser } from "@/lib/todos";
 import {
   Card,
   CardContent,
@@ -10,13 +11,18 @@ import {
   CardDescription,
 } from "@/components/ui/Card";
 import { Avatar, DetailRow, BackIcon } from "@/components/ui/UserDetail";
+import UserTodosSection from "@/components/users/UserTodosSection";
+
+function parseUserId(id: string): number | null {
+  const n = Number(id);
+  return Number.isInteger(n) && n > 0 ? n : null;
+}
 
 // ─── Static generation ────────────────────────────────────────────────────────
 export async function generateStaticParams() {
   return Array.from({ length: 10 }, (_, i) => ({ id: String(i + 1) }));
 }
 
-// ─── Helper for fetching ──────────────────────────────────────────────────────
 async function getUserOr404(id: number) {
   try {
     return await fetchUser(id);
@@ -35,9 +41,9 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const numericId = Number(id);
+  const numericId = parseUserId(id);
 
-  if (!Number.isInteger(numericId) || numericId <= 0) {
+  if (numericId === null) {
     return { title: "User Not Found" };
   }
 
@@ -52,21 +58,20 @@ export async function generateMetadata({
   }
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
 export default async function UserDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const numericId = Number(id);
+  const numericId = parseUserId(id);
 
-  if (!Number.isInteger(numericId) || numericId <= 0) {
-    notFound();
-  }
+  if (numericId === null) notFound();
 
   const user = await getUserOr404(numericId);
   const { name, username, email, phone, website, company, address } = user;
+
+  const todos = await fetchTodosForUser(numericId);
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-2xl">
@@ -153,6 +158,8 @@ export default async function UserDetailPage({
             </p>
           </CardContent>
         </Card>
+
+        <UserTodosSection todos={todos} />
       </div>
     </div>
   );
