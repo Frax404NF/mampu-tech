@@ -30,7 +30,7 @@ function getFilteredSortedUsers(users: User[], search: string, sort: SortOrder) 
 export default function UsersTable({ users }: UsersTableProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const [inputValue, setInputValue] = useState(searchParams.get("q") || "");
   const sort = (searchParams.get("sort") as SortOrder) || "asc";
@@ -160,7 +160,21 @@ export default function UsersTable({ users }: UsersTableProps) {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={user.id}
+                      onClick={() => router.push(`/users/${user.id}`)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          router.push(`/users/${user.id}`);
+                        }
+                      }}
+                      tabIndex={0}
+                      role="link"
+                      aria-label={`View profile for ${user.name}`}
+                      className="hover:bg-gray-50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900"
+                    >
+                      
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="font-medium text-gray-900">{user.name}</div>
                       <div className="text-gray-500 sm:hidden mt-1">{user.email}</div>
@@ -173,7 +187,8 @@ export default function UsersTable({ users }: UsersTableProps) {
                         href={`http://${user.website}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 hover:underline"
+                        className="text-blue-600 hover:text-blue-800 hover:underline relative z-10"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         {user.website}
                       </a>
