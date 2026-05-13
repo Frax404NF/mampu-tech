@@ -1,4 +1,10 @@
 // src/types/user.ts
+import type { UserActivity } from "@/lib/todos";
+
+export interface UserRow {
+  user: User;
+  activity: UserActivity | null;
+}
 
 export interface User {
   id: number;

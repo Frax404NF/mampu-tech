@@ -1,8 +1,9 @@
 import type { User } from "@/types/user";
+import type { Todo } from "@/types/todo";
 
 const BASE_URL = "https://jsonplaceholder.typicode.com";
 
-class ApiError extends Error {
+export class ApiError extends Error {
   constructor(public status: number, message: string) {
     super(message);
     this.name = "ApiError";
@@ -25,6 +26,7 @@ export function fetchUser(id: number) {
   return apiFetch<User>(`/users/${id}`, { next: { revalidate: 60 } });
 }
 
-
-export { ApiError };
+export function fetchTodos() {
+  return apiFetch<Todo[]>("/todos", { next: { revalidate: 60, tags: ["todos"] } });
+}
 
