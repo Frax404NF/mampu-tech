@@ -26,10 +26,10 @@ export default function UserNotFound() {
       {/* 404 card */}
       <div className="bg-white border border-slate-100 rounded-xl shadow-sm p-12 text-center">
         <p className="text-5xl font-semibold text-slate-200 mb-3">404</p>
-        <p className="text-sm font-medium text-slate-700 mb-1">User not found</p>
-        <p className="text-xs text-slate-500">
-          No user exists with that ID.
+        <p className="text-sm font-medium text-slate-700 mb-1">
+          User not found
         </p>
+        <p className="text-xs text-slate-500">No user exists with that ID.</p>
       </div>
     </div>
   )

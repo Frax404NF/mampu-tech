@@ -28,16 +28,23 @@ function parseWorkloadParam(value: string | null): WorkloadFilter {
   return 'all'
 }
 
-function applyWorkloadFilter(rows: UserRow[], workload: WorkloadFilter): UserRow[] {
+function applyWorkloadFilter(
+  rows: UserRow[],
+  workload: WorkloadFilter
+): UserRow[] {
   if (workload === 'all') return rows
   return rows.filter((row) => {
     if (row.activity === null) return true
     const p = row.activity.pending
     switch (workload) {
-      case 'high':   return p > 10
-      case 'medium': return p > 5 && p <= 10
-      case 'low':    return p <= 5
-      default:       return true
+      case 'high':
+        return p > 10
+      case 'medium':
+        return p > 5 && p <= 10
+      case 'low':
+        return p <= 5
+      default:
+        return true
     }
   })
 }
@@ -77,7 +84,8 @@ function getFilteredSortedRows(
 
 // ─── Todos badges ─────────────────────────────────────────────────────────────
 function TodosBadges({ activity }: { activity: UserActivity | null }) {
-  if (activity === null) return <span className="text-slate-400 text-sm">—</span>
+  if (activity === null)
+    return <span className="text-slate-400 text-sm">—</span>
 
   const { pending, completed } = activity
   return (
@@ -124,8 +132,11 @@ function Pagination({
   return (
     <div className="flex items-center justify-between px-1 pt-4">
       <p className="text-xs text-slate-500">
-        Showing <span className="font-medium text-slate-700">{from}–{to}</span> of{' '}
-        <span className="font-medium text-slate-700">{totalRows}</span> users
+        Showing{' '}
+        <span className="font-medium text-slate-700">
+          {from}–{to}
+        </span>{' '}
+        of <span className="font-medium text-slate-700">{totalRows}</span> users
       </p>
       <div className="flex items-center gap-1.5">
         <button
@@ -182,7 +193,9 @@ export function UsersTable({
   const totalPages = Math.max(1, Math.ceil(filteredRows.length / PAGE_SIZE))
 
   // Reset to page 1 whenever filters change
-  useEffect(() => { setPage(1) }, [workload, inputValue, sort, pendingSort])
+  useEffect(() => {
+    setPage(1)
+  }, [workload, inputValue, sort, pendingSort])
 
   const pagedRows = useMemo(
     () => filteredRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
@@ -204,7 +217,9 @@ export function UsersTable({
         } else {
           params.delete('q')
         }
-        startTransition(() => { router.replace(`?${params.toString()}`) })
+        startTransition(() => {
+          router.replace(`?${params.toString()}`)
+        })
       }
     }, 300)
     return () => clearTimeout(timer)
@@ -219,14 +234,22 @@ export function UsersTable({
     const params = new URLSearchParams(Array.from(searchParams.entries()))
     params.set('sort', newSort)
     params.delete('psort')
-    startTransition(() => { router.replace(`?${params.toString()}`) })
+    startTransition(() => {
+      router.replace(`?${params.toString()}`)
+    })
   }
 
   function handleWorkloadChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const val = e.target.value as WorkloadFilter
     const params = new URLSearchParams(Array.from(searchParams.entries()))
-    if (val === 'all') { params.delete('workload') } else { params.set('workload', val) }
-    startTransition(() => { router.replace(`?${params.toString()}`) })
+    if (val === 'all') {
+      params.delete('workload')
+    } else {
+      params.set('workload', val)
+    }
+    startTransition(() => {
+      router.replace(`?${params.toString()}`)
+    })
   }
 
   function handlePendingSortToggle() {
@@ -238,14 +261,18 @@ export function UsersTable({
     } else {
       params.set('psort', 'desc')
     }
-    startTransition(() => { router.replace(`?${params.toString()}`) })
+    startTransition(() => {
+      router.replace(`?${params.toString()}`)
+    })
   }
 
   function handleClearFilters() {
     setInputValue('')
     const params = new URLSearchParams()
     if (sort !== 'asc') params.set('sort', sort)
-    startTransition(() => { router.replace(`?${params.toString()}`) })
+    startTransition(() => {
+      router.replace(`?${params.toString()}`)
+    })
   }
 
   const pendingSortIcon =
@@ -351,7 +378,9 @@ export function UsersTable({
               <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
               <path d="M16 3.13a4 4 0 0 1 0 7.75" />
             </svg>
-            <p className="text-sm font-medium text-slate-700 mb-1">No users found</p>
+            <p className="text-sm font-medium text-slate-700 mb-1">
+              No users found
+            </p>
             <p className="text-xs text-slate-500 mb-4">
               Try adjusting your search or filter
             </p>
@@ -432,17 +461,49 @@ export function UsersTable({
                           aria-hidden="true"
                         >
                           {sort === 'asc' ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6" /></svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="m18 15-6-6-6 6" />
+                            </svg>
                           ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="m6 9 6 6 6-6" />
+                            </svg>
                           )}
                         </span>
                       </div>
                     </th>
-                    <th scope="col" className="table-header w-[26%]">Email</th>
-                    <th scope="col" className="table-header w-[18%]">Website</th>
-                    <th scope="col" className="table-header w-[18%]">Todos</th>
-                    <th scope="col" className="table-header w-[10%]">Posts</th>
+                    <th scope="col" className="table-header w-[26%]">
+                      Email
+                    </th>
+                    <th scope="col" className="table-header w-[18%]">
+                      Website
+                    </th>
+                    <th scope="col" className="table-header w-[18%]">
+                      Todos
+                    </th>
+                    <th scope="col" className="table-header w-[10%]">
+                      Posts
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">

@@ -62,7 +62,10 @@ export function UserDetailSkeleton() {
           <div className="divide-y divide-slate-100">
             {[70, 55, 80].map((w, i) => (
               <div key={i} className="py-3 first:pt-0 space-y-1.5">
-                <div className={`h-3.5 bg-slate-200 rounded`} style={{ width: `${w}%` }} />
+                <div
+                  className={`h-3.5 bg-slate-200 rounded`}
+                  style={{ width: `${w}%` }}
+                />
                 <div className="h-2.5 w-full bg-slate-100 rounded" />
                 <div className="h-2.5 w-4/5 bg-slate-100 rounded" />
               </div>
@@ -95,7 +98,10 @@ export function UserDetailSkeleton() {
             {[65, 80, 55].map((w, i) => (
               <div key={i} className="flex items-center gap-2.5">
                 <div className="w-4 h-4 rounded bg-slate-200 flex-shrink-0" />
-                <div className="h-3 bg-slate-200 rounded" style={{ width: `${w}%` }} />
+                <div
+                  className="h-3 bg-slate-200 rounded"
+                  style={{ width: `${w}%` }}
+                />
               </div>
             ))}
           </div>

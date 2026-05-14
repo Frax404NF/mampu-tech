@@ -6,20 +6,21 @@ A team directory web application built with Next.js 15 (App Router) and React 19
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 15 (App Router, Turbopack) |
-| UI | React 19, Tailwind CSS v4 |
-| Language | TypeScript 5 (strict mode) |
-| Testing | Jest 30, React Testing Library, user-event |
-| Linting | ESLint 9, Prettier 3 |
-| Package Manager | pnpm |
+| Layer           | Technology                                 |
+| --------------- | ------------------------------------------ |
+| Framework       | Next.js 15 (App Router, Turbopack)         |
+| UI              | React 19, Tailwind CSS v4                  |
+| Language        | TypeScript 5 (strict mode)                 |
+| Testing         | Jest 30, React Testing Library, user-event |
+| Linting         | ESLint 9, Prettier 3                       |
+| Package Manager | pnpm                                       |
 
 ---
 
 ## Features
 
 ### User Directory (`/users`)
+
 - Server-side data fetching with 60s revalidation
 - Searchable by name or email (debounced, URL-synced)
 - Sortable by name (asc/desc)
@@ -33,6 +34,7 @@ A team directory web application built with Next.js 15 (App Router) and React 19
 - Derived activity signals: todo completion badges, post count badges
 
 ### User Detail (`/users/[id]`)
+
 - Full profile: contact info, company, address
 - Posts section with accordion expand and "view all" toggle
 - Todos section with pending/completed tabs
@@ -113,6 +115,7 @@ pnpm test
 ### Test Coverage
 
 **Users List (`UsersTable.test.tsx`)**
+
 - Renders users with derived activity signals (todo badges, post counts)
 - Filters by search input (name/email)
 - Filters by workload level (high/medium/low)
@@ -125,6 +128,7 @@ pnpm test
 - Mocked `fetch` for API success and error responses
 
 **User Detail (`UserDetail.test.tsx`)**
+
 - Posts section: renders titles, count badge, expand/collapse, null state, empty state
 - Todos section: renders badges, pending/completed tabs, null state, empty state
 - Error boundary: renders error message with retry
@@ -139,6 +143,7 @@ pnpm test
 - **Graceful degradation** — if the todos or posts API fails, the app still renders user data with "unavailable" indicators rather than crashing.
 - **URL-synced state** — search, sort, and filter params are stored in the URL so users can share or bookmark filtered views.
 - **Accessible loading states** — skeletons use `role="status"` and `aria-label` for screen reader support.
+
 ---
 
 ## Data Source

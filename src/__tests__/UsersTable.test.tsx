@@ -23,19 +23,53 @@ function makeUser(overrides: Partial<UserRow['user']> = {}): UserRow['user'] {
     email: 'leanne@example.com',
     phone: '1-770-736-8031',
     website: 'hildegard.org',
-    company: { name: 'Romaguera', catchPhrase: 'Multi-layered', bs: 'synergize' },
-    address: { street: 'Kulas', suite: 'Apt. 556', city: 'Gwenborough', zipcode: '92998', geo: { lat: '-37.3159', lng: '81.1496' } },
+    company: {
+      name: 'Romaguera',
+      catchPhrase: 'Multi-layered',
+      bs: 'synergize',
+    },
+    address: {
+      street: 'Kulas',
+      suite: 'Apt. 556',
+      city: 'Gwenborough',
+      zipcode: '92998',
+      geo: { lat: '-37.3159', lng: '81.1496' },
+    },
     ...overrides,
   }
 }
 
 const rows: UserRow[] = [
-  { user: makeUser({ id: 1, name: 'Alice Smith', email: 'alice@test.com' }), activity: { completed: 5, pending: 12, total: 17 }, postCount: 3 },
-  { user: makeUser({ id: 2, name: 'Bob Jones', email: 'bob@test.com' }), activity: { completed: 8, pending: 3, total: 11 }, postCount: 7 },
-  { user: makeUser({ id: 3, name: 'Charlie Brown', email: 'charlie@test.com' }), activity: { completed: 2, pending: 7, total: 9 }, postCount: 0 },
-  { user: makeUser({ id: 4, name: 'Diana Prince', email: 'diana@test.com' }), activity: { completed: 0, pending: 0, total: 0 }, postCount: null },
-  { user: makeUser({ id: 5, name: 'Eve Adams', email: 'eve@test.com' }), activity: null, postCount: 5 },
-  { user: makeUser({ id: 6, name: 'Frank Castle', email: 'frank@test.com' }), activity: { completed: 1, pending: 4, total: 5 }, postCount: 2 },
+  {
+    user: makeUser({ id: 1, name: 'Alice Smith', email: 'alice@test.com' }),
+    activity: { completed: 5, pending: 12, total: 17 },
+    postCount: 3,
+  },
+  {
+    user: makeUser({ id: 2, name: 'Bob Jones', email: 'bob@test.com' }),
+    activity: { completed: 8, pending: 3, total: 11 },
+    postCount: 7,
+  },
+  {
+    user: makeUser({ id: 3, name: 'Charlie Brown', email: 'charlie@test.com' }),
+    activity: { completed: 2, pending: 7, total: 9 },
+    postCount: 0,
+  },
+  {
+    user: makeUser({ id: 4, name: 'Diana Prince', email: 'diana@test.com' }),
+    activity: { completed: 0, pending: 0, total: 0 },
+    postCount: null,
+  },
+  {
+    user: makeUser({ id: 5, name: 'Eve Adams', email: 'eve@test.com' }),
+    activity: null,
+    postCount: 5,
+  },
+  {
+    user: makeUser({ id: 6, name: 'Frank Castle', email: 'frank@test.com' }),
+    activity: { completed: 1, pending: 4, total: 5 },
+    postCount: 2,
+  },
 ]
 
 beforeEach(() => {
@@ -110,14 +144,26 @@ describe('UsersTable', () => {
     await user.type(searchInput, 'zzzznonexistent')
 
     expect(screen.getByText('No users found')).toBeInTheDocument()
-    expect(screen.getByText('Try adjusting your search or filter')).toBeInTheDocument()
+    expect(
+      screen.getByText('Try adjusting your search or filter')
+    ).toBeInTheDocument()
   })
 
   it('shows dash when activity data is null (todos unavailable for a user)', () => {
     const nullRows: UserRow[] = [
-      { user: makeUser({ id: 1, name: 'Test User', email: 'test@test.com' }), activity: null, postCount: null },
+      {
+        user: makeUser({ id: 1, name: 'Test User', email: 'test@test.com' }),
+        activity: null,
+        postCount: null,
+      },
     ]
-    render(<UsersTable rows={nullRows} todosAvailable={false} postsAvailable={false} />)
+    render(
+      <UsersTable
+        rows={nullRows}
+        todosAvailable={false}
+        postsAvailable={false}
+      />
+    )
 
     // Dashes for unavailable data
     const dashes = screen.getAllByText('—')
@@ -173,7 +219,22 @@ describe('API layer (mocked network)', () => {
 
   it('fetchUsers returns parsed user data on success', async () => {
     const mockUsers = [
-      { id: 1, name: 'Test User', username: 'tuser', email: 'test@test.com', phone: '123', website: 'test.com', company: { name: 'Co', catchPhrase: 'x', bs: 'y' }, address: { street: 'St', suite: 'A', city: 'City', zipcode: '00000', geo: { lat: '0', lng: '0' } } },
+      {
+        id: 1,
+        name: 'Test User',
+        username: 'tuser',
+        email: 'test@test.com',
+        phone: '123',
+        website: 'test.com',
+        company: { name: 'Co', catchPhrase: 'x', bs: 'y' },
+        address: {
+          street: 'St',
+          suite: 'A',
+          city: 'City',
+          zipcode: '00000',
+          geo: { lat: '0', lng: '0' },
+        },
+      },
     ]
 
     global.fetch = jest.fn().mockResolvedValue({

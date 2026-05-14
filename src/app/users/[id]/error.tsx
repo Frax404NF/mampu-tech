@@ -36,13 +36,11 @@ export default function UserDetailError({
           Failed to load profile
         </p>
         <p className="text-xs text-red-600 mb-5">
-          We couldn&apos;t fetch this user&apos;s data. This is likely temporary.
+          We couldn&apos;t fetch this user&apos;s data. This is likely
+          temporary.
         </p>
         <div className="flex items-center justify-center gap-3">
-          <button
-            onClick={reset}
-            className="btn btn-primary text-xs px-4 py-2"
-          >
+          <button onClick={reset} className="btn btn-primary text-xs px-4 py-2">
             Try again
           </button>
         </div>

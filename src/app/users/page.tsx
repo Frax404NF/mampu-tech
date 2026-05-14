@@ -57,7 +57,9 @@ export default function UsersPage() {
     <div className="max-w-6xl mx-auto px-6 pt-8 pb-12">
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-slate-900">Users</h1>
-        <p className="mt-1 text-sm text-slate-500">Browse and search your team.</p>
+        <p className="mt-1 text-sm text-slate-500">
+          Browse and search your team.
+        </p>
       </div>
 
       <Suspense fallback={<UserTableSkeleton />}>

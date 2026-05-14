@@ -4,7 +4,6 @@ const SKELETON_ROW_COUNT = 5
 export function UserTableSkeleton() {
   return (
     <div role="status" aria-label="Loading users" className="animate-pulse">
-
       {/* ── Controls bar shimmer ─────────────────────────────────────────── */}
       {/* search | workload select | workload sort btn — mirrors toolbar */}
       <div className="mb-4 flex flex-col sm:flex-row sm:items-center gap-2">
@@ -109,7 +108,6 @@ export function UserTableSkeleton() {
           <div className="h-7 w-16 bg-slate-200 rounded-lg" />
         </div>
       </div>
-
     </div>
   )
 }

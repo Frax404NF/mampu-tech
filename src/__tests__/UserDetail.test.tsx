@@ -48,7 +48,9 @@ describe('UserPostsSection', () => {
 
   it('shows unavailable state when posts is null', () => {
     render(<UserPostsSection posts={null} />)
-    expect(screen.getByText('Post data is currently unavailable.')).toBeInTheDocument()
+    expect(
+      screen.getByText('Post data is currently unavailable.')
+    ).toBeInTheDocument()
   })
 
   it('shows empty state when posts array is empty', () => {
@@ -88,7 +90,9 @@ describe('UserTodosSection', () => {
 
   it('shows unavailable state when todos is null', () => {
     render(<UserTodosSection todos={null} />)
-    expect(screen.getByText('Todo data is currently unavailable.')).toBeInTheDocument()
+    expect(
+      screen.getByText('Todo data is currently unavailable.')
+    ).toBeInTheDocument()
   })
 
   it('shows empty state when todos array is empty', () => {
@@ -140,10 +144,13 @@ describe('UserNotFound', () => {
 // ─── Loading state (skeleton) ────────────────────────────────────────────────
 describe('UserDetailSkeleton (loading state)', () => {
   it('renders a loading skeleton with accessible status', async () => {
-    const { UserDetailSkeleton } = await import('@/components/users/UserDetailSkeleton')
+    const { UserDetailSkeleton } =
+      await import('@/components/users/UserDetailSkeleton')
     render(<UserDetailSkeleton />)
 
-    const skeleton = screen.getByRole('status', { name: 'Loading user profile' })
+    const skeleton = screen.getByRole('status', {
+      name: 'Loading user profile',
+    })
     expect(skeleton).toBeInTheDocument()
     expect(skeleton).toHaveClass('animate-pulse')
   })
