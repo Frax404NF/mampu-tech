@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { fetchUser, ApiError } from "@/lib/api";
 import { fetchTodosForUser } from "@/lib/todos";
 import { fetchPostsForUser } from "@/lib/posts";
+import { toWebsiteUrl } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -123,7 +124,7 @@ export default async function UserDetailPage({
             </DetailRow>
             <DetailRow label="Website">
               <a
-                href={`https://${website}`}
+                href={toWebsiteUrl(website)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:text-blue-800 hover:underline"

@@ -1,5 +1,3 @@
-// src/types/todo.ts
-
 export interface Todo {
   userId: number;
   id: number;

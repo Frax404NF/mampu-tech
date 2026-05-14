@@ -1,21 +1,12 @@
 import type { Post } from "@/types/post";
-import { fetchPosts, ApiError } from "@/lib/api";
+import { fetchPosts } from "@/lib/api";
+import { groupByUserId, withApiErrorFallback } from "@/lib/utils";
 
 /**
  * Groups a flat posts array into a Map keyed by userId.
- * Every post appears in exactly one bucket (the one matching its userId).
  */
 export function groupPostsByUser(posts: Post[]): Map<number, Post[]> {
-  const map = new Map<number, Post[]>();
-  for (const post of posts) {
-    const bucket = map.get(post.userId);
-    if (bucket) {
-      bucket.push(post);
-    } else {
-      map.set(post.userId, [post]);
-    }
-  }
-  return map;
+  return groupByUserId(posts);
 }
 
 /**
@@ -29,14 +20,10 @@ export function postCountFor(posts: Post[] | undefined): number {
 /**
  * Fetches all posts and returns the slice for a specific user.
  * Returns null on ApiError (graceful degrade), re-throws other errors.
- * Returns [] when the user has no posts.
  */
 export async function fetchPostsForUser(userId: number): Promise<Post[] | null> {
-  try {
+  return withApiErrorFallback(async () => {
     const all = await fetchPosts();
     return groupPostsByUser(all).get(userId) ?? [];
-  } catch (err) {
-    if (err instanceof ApiError) return null;
-    throw err;
-  }
+  });
 }

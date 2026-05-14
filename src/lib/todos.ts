@@ -1,27 +1,17 @@
 import type { Todo } from "@/types/todo";
-import { fetchTodos, ApiError } from "@/lib/api";
+import type { UserActivity } from "@/types/activity";
+import { fetchTodos } from "@/lib/api";
+import { groupByUserId, withApiErrorFallback } from "@/lib/utils";
 
-export interface UserActivity {
-  completed: number;
-  pending: number;
-  total: number;
-}
+// Re-export so existing consumers don't break
+export type { UserActivity } from "@/types/activity";
+export { toWebsiteUrl } from "@/lib/utils";
 
 /**
  * Groups a flat todos array into a Map keyed by userId.
- * Every todo appears in exactly one bucket (the one matching its userId).
  */
 export function groupTodosByUser(todos: Todo[]): Map<number, Todo[]> {
-  const map = new Map<number, Todo[]>();
-  for (const todo of todos) {
-    const bucket = map.get(todo.userId);
-    if (bucket) {
-      bucket.push(todo);
-    } else {
-      map.set(todo.userId, [todo]);
-    }
-  }
-  return map;
+  return groupByUserId(todos);
 }
 
 /**
@@ -47,22 +37,10 @@ export function activityFor(todos: Todo[] | undefined): UserActivity {
 /**
  * Fetches all todos and returns the slice for a specific user.
  * Returns null on ApiError (graceful degrade), re-throws other errors.
- * Returns [] when the user has no todos.
  */
 export async function fetchTodosForUser(userId: number): Promise<Todo[] | null> {
-  try {
+  return withApiErrorFallback(async () => {
     const all = await fetchTodos();
     return groupTodosByUser(all).get(userId) ?? [];
-  } catch (err) {
-    if (err instanceof ApiError) return null;
-    throw err;
-  }
-}
-
-/**
- * Normalises a bare hostname to an https:// URL.
- * Leaves values that already start with http(s):// unchanged.
- */
-export function toWebsiteUrl(website: string): string {
-  return website.startsWith("http") ? website : `https://${website}`;
+  });
 }
