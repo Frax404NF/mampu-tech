@@ -4,6 +4,7 @@ import type { UserActivity } from "@/lib/todos";
 export interface UserRow {
   user: User;
   activity: UserActivity | null;
+  postCount: number | null;
 }
 
 export interface User {

@@ -1,5 +1,6 @@
 import type { User } from "@/types/user";
 import type { Todo } from "@/types/todo";
+import type { Post } from "@/types/post";
 
 const BASE_URL = "https://jsonplaceholder.typicode.com";
 
@@ -28,5 +29,9 @@ export function fetchUser(id: number) {
 
 export function fetchTodos() {
   return apiFetch<Todo[]>("/todos", { next: { revalidate: 60, tags: ["todos"] } });
+}
+
+export function fetchPosts() {
+  return apiFetch<Post[]>("/posts", { next: { revalidate: 60 } });
 }
 
