@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { fetchUser, ApiError } from "@/lib/api";
 import { fetchTodosForUser } from "@/lib/todos";
+import { fetchPostsForUser } from "@/lib/posts";
 import {
   Card,
   CardContent,
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/Card";
 import { Avatar, DetailRow, BackIcon } from "@/components/ui/UserDetail";
 import UserTodosSection from "@/components/users/UserTodosSection";
+import UserPostsSection from "@/components/users/UserPostsSection";
 
 function parseUserId(id: string): number | null {
   const n = Number(id);
@@ -71,7 +73,10 @@ export default async function UserDetailPage({
   const user = await getUserOr404(numericId);
   const { name, username, email, phone, website, company, address } = user;
 
-  const todos = await fetchTodosForUser(numericId);
+  const [todos, posts] = await Promise.all([
+    fetchTodosForUser(numericId),
+    fetchPostsForUser(numericId),
+  ]);
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-2xl">
@@ -160,6 +165,7 @@ export default async function UserDetailPage({
         </Card>
 
         <UserTodosSection todos={todos} />
+        <UserPostsSection posts={posts} />
       </div>
     </div>
   );
