@@ -1,26 +1,26 @@
-import React from 'react';
+import React from 'react'
 
 export function Avatar({ name }: { name: string }) {
   const initials = name
-    .split(" ")
+    .split(' ')
     .slice(0, 2)
     .map((n) => n[0])
-    .join("")
-    .toUpperCase();
+    .join('')
+    .toUpperCase()
 
   return (
     <div className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
       <span className="text-white font-semibold text-sm">{initials}</span>
     </div>
-  );
+  )
 }
 
 export function DetailRow({
   label,
   children,
 }: {
-  label: string;
-  children: React.ReactNode;
+  label: string
+  children: React.ReactNode
 }) {
   return (
     <div className="flex items-baseline gap-4 text-sm">
@@ -29,7 +29,7 @@ export function DetailRow({
       </span>
       <div>{children}</div>
     </div>
-  );
+  )
 }
 
 export function BackIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -47,5 +47,5 @@ export function BackIcon(props: React.SVGProps<SVGSVGElement>) {
     >
       <polyline points="15 18 9 12 15 6" />
     </svg>
-  );
+  )
 }

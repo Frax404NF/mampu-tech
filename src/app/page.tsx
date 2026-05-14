@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -7,7 +7,8 @@ export default function Home() {
         Welcome to Mampu Tech
       </h1>
       <p className="text-lg text-gray-500 max-w-2xl mb-6">
-        The central hub for our organization. Manage team members, view contact information, and keep our directory up to date.
+        The central hub for our organization. Manage team members, view contact
+        information, and keep our directory up to date.
       </p>
       <Link
         href="/users"
@@ -16,5 +17,5 @@ export default function Home() {
         User Repository
       </Link>
     </div>
-  );
+  )
 }

@@ -1,26 +1,26 @@
-"use client";
-import { useState } from "react";
-import type { Post } from "@/types/post";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+'use client'
+import { useState } from 'react'
+import type { Post } from '@/types/post'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 
 interface Props {
-  posts: Post[] | null;
+  posts: Post[] | null
 }
 
 export default function UserPostsSection({ posts }: Props) {
-  const [listExpanded, setListExpanded] = useState(false);
+  const [listExpanded, setListExpanded] = useState(false)
   // Fix 1 & 7: first post open by default — signals interactivity, rest collapsed
   const [expanded, setExpanded] = useState<Set<number>>(
     () => new Set(posts && posts.length > 0 ? [posts[0].id] : [])
-  );
+  )
 
   function toggle(id: number) {
     setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
   }
 
   // ── Null branch ────────────────────────────────────────────────────────────
@@ -55,7 +55,7 @@ export default function UserPostsSection({ posts }: Props) {
           </div>
         </CardContent>
       </Card>
-    );
+    )
   }
 
   // ── Empty branch ───────────────────────────────────────────────────────────
@@ -92,12 +92,12 @@ export default function UserPostsSection({ posts }: Props) {
           </div>
         </CardContent>
       </Card>
-    );
+    )
   }
 
   // ── List branch ────────────────────────────────────────────────────────────
-  const total = posts.length;
-  const visiblePosts = listExpanded ? posts : posts.slice(0, 3);
+  const total = posts.length
+  const visiblePosts = listExpanded ? posts : posts.slice(0, 3)
 
   return (
     <Card>
@@ -115,8 +115,8 @@ export default function UserPostsSection({ posts }: Props) {
       <CardContent className="pt-0">
         <ul className="divide-y divide-gray-100">
           {visiblePosts.map((post) => {
-            const isExpanded = expanded.has(post.id);
-            const bodyId = `post-body-${post.id}`;
+            const isExpanded = expanded.has(post.id)
+            const bodyId = `post-body-${post.id}`
             return (
               <li key={post.id}>
                 <button
@@ -142,7 +142,7 @@ export default function UserPostsSection({ posts }: Props) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className={`flex-shrink-0 text-gray-400 transition-transform duration-200 ${
-                      isExpanded ? "rotate-180" : ""
+                      isExpanded ? 'rotate-180' : ''
                     }`}
                     aria-hidden="true"
                   >
@@ -158,7 +158,7 @@ export default function UserPostsSection({ posts }: Props) {
                   </div>
                 )}
               </li>
-            );
+            )
           })}
         </ul>
 
@@ -178,15 +178,15 @@ export default function UserPostsSection({ posts }: Props) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={`transition-transform duration-200 ${listExpanded ? "rotate-180" : ""}`}
+              className={`transition-transform duration-200 ${listExpanded ? 'rotate-180' : ''}`}
               aria-hidden="true"
             >
               <polyline points="6 9 12 15 18 9" />
             </svg>
-            {listExpanded ? "Show fewer" : `Show ${total - 3} more posts`}
+            {listExpanded ? 'Show fewer' : `Show ${total - 3} more posts`}
           </button>
         )}
       </CardContent>
     </Card>
-  );
+  )
 }

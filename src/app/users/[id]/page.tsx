@@ -1,39 +1,39 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import type { Metadata } from "next";
-import { fetchUser, ApiError } from "@/lib/api";
-import { fetchTodosForUser } from "@/lib/todos";
-import { fetchPostsForUser } from "@/lib/posts";
-import { toWebsiteUrl } from "@/lib/utils";
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import type { Metadata } from 'next'
+import { fetchUser, ApiError } from '@/lib/api'
+import { fetchTodosForUser } from '@/lib/todos'
+import { fetchPostsForUser } from '@/lib/posts'
+import { toWebsiteUrl } from '@/lib/utils'
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/Card";
-import { Avatar, DetailRow, BackIcon } from "@/components/ui/UserDetail";
-import UserTodosSection from "@/components/users/UserTodosSection";
-import UserPostsSection from "@/components/users/UserPostsSection";
+} from '@/components/ui/Card'
+import { Avatar, DetailRow, BackIcon } from '@/components/ui/UserDetail'
+import UserTodosSection from '@/components/users/UserTodosSection'
+import UserPostsSection from '@/components/users/UserPostsSection'
 
 function parseUserId(id: string): number | null {
-  const n = Number(id);
-  return Number.isInteger(n) && n > 0 ? n : null;
+  const n = Number(id)
+  return Number.isInteger(n) && n > 0 ? n : null
 }
 
 // ─── Static generation ────────────────────────────────────────────────────────
 export async function generateStaticParams() {
-  return Array.from({ length: 10 }, (_, i) => ({ id: String(i + 1) }));
+  return Array.from({ length: 10 }, (_, i) => ({ id: String(i + 1) }))
 }
 
 async function getUserOr404(id: number) {
   try {
-    return await fetchUser(id);
+    return await fetchUser(id)
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) {
-      notFound();
+      notFound()
     }
-    throw error;
+    throw error
   }
 }
 
@@ -41,43 +41,43 @@ async function getUserOr404(id: number) {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>
 }): Promise<Metadata> {
-  const { id } = await params;
-  const numericId = parseUserId(id);
+  const { id } = await params
+  const numericId = parseUserId(id)
 
   if (numericId === null) {
-    return { title: "User Not Found" };
+    return { title: 'User Not Found' }
   }
 
   try {
-    const user = await getUserOr404(numericId);
+    const user = await getUserOr404(numericId)
     return {
       title: user.name,
       description: `Profile, company, and address details for ${user.name} — ${user.email}`,
-    };
+    }
   } catch {
-    return { title: "User Not Found" };
+    return { title: 'User Not Found' }
   }
 }
 
 export default async function UserDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>
 }) {
-  const { id } = await params;
-  const numericId = parseUserId(id);
+  const { id } = await params
+  const numericId = parseUserId(id)
 
-  if (numericId === null) notFound();
+  if (numericId === null) notFound()
 
-  const user = await getUserOr404(numericId);
-  const { name, username, email, phone, website, company, address } = user;
+  const user = await getUserOr404(numericId)
+  const { name, username, email, phone, website, company, address } = user
 
   const [todos, posts] = await Promise.all([
     fetchTodosForUser(numericId),
     fetchPostsForUser(numericId),
-  ]);
+  ])
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-2xl">
@@ -169,5 +169,5 @@ export default async function UserDetailPage({
         <UserPostsSection posts={posts} />
       </div>
     </div>
-  );
+  )
 }

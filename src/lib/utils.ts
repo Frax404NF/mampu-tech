@@ -1,4 +1,4 @@
-import { ApiError } from "@/lib/api";
+import { ApiError } from '@/lib/api'
 
 /**
  * Groups an array of items into a Map keyed by each item's `userId` field.
@@ -7,16 +7,16 @@ import { ApiError } from "@/lib/api";
 export function groupByUserId<T extends { userId: number }>(
   items: T[]
 ): Map<number, T[]> {
-  const map = new Map<number, T[]>();
+  const map = new Map<number, T[]>()
   for (const item of items) {
-    const bucket = map.get(item.userId);
+    const bucket = map.get(item.userId)
     if (bucket) {
-      bucket.push(item);
+      bucket.push(item)
     } else {
-      map.set(item.userId, [item]);
+      map.set(item.userId, [item])
     }
   }
-  return map;
+  return map
 }
 
 /**
@@ -27,10 +27,10 @@ export async function withApiErrorFallback<T>(
   fn: () => Promise<T>
 ): Promise<T | null> {
   try {
-    return await fn();
+    return await fn()
   } catch (err) {
-    if (err instanceof ApiError) return null;
-    throw err;
+    if (err instanceof ApiError) return null
+    throw err
   }
 }
 
@@ -39,5 +39,5 @@ export async function withApiErrorFallback<T>(
  * Leaves values that already start with http(s):// unchanged.
  */
 export function toWebsiteUrl(website: string): string {
-  return website.startsWith("http") ? website : `https://${website}`;
+  return website.startsWith('http') ? website : `https://${website}`
 }

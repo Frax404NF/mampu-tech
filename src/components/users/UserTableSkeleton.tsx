@@ -1,4 +1,4 @@
-const SKELETON_ROW_COUNT = 6;
+const SKELETON_ROW_COUNT = 6
 
 export default function UserTableSkeleton() {
   return (
@@ -60,5 +60,5 @@ export default function UserTableSkeleton() {
         </div>
       </div>
     </div>
-  );
+  )
 }

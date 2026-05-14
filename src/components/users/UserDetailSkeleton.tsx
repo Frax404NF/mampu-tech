@@ -18,30 +18,31 @@ export function UserDetailSkeleton() {
           </div>
         </div>
       </div>
-      
+
       <SkeletonSection variant="contact" rows={3} />
       <SkeletonSection variant="company" rows={2} />
       <SkeletonSection variant="address" rows={2} />
       <SkeletonSection variant="todos" rows={5} />
       <SkeletonSection variant="posts" rows={4} />
     </div>
-  );
+  )
 }
 
 interface SkeletonSectionProps {
-  rows: number;
-  variant?: "contact" | "company" | "address" | "todos" | "posts";
+  rows: number
+  variant?: 'contact' | 'company' | 'address' | 'todos' | 'posts'
 }
 
-function SkeletonSection({ rows, variant = "contact" }: SkeletonSectionProps) {
-  const isDetailRow = variant === "contact" || variant === "company" || variant === "address";
+function SkeletonSection({ rows, variant = 'contact' }: SkeletonSectionProps) {
+  const isDetailRow =
+    variant === 'contact' || variant === 'company' || variant === 'address'
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div className="h-3 w-20 bg-gray-200 rounded-full" />
-        {(variant === "todos" || variant === "posts") && (
+        {(variant === 'todos' || variant === 'posts') && (
           <div className="h-3 w-12 bg-gray-100 rounded-full" />
         )}
       </div>
@@ -60,7 +61,7 @@ function SkeletonSection({ rows, variant = "contact" }: SkeletonSectionProps) {
         </div>
       )}
 
-      {variant === "todos" && (
+      {variant === 'todos' && (
         <>
           {/* Progress summary shimmer */}
           <div className="h-3 w-48 bg-gray-100 rounded-full mb-4" />
@@ -79,10 +80,13 @@ function SkeletonSection({ rows, variant = "contact" }: SkeletonSectionProps) {
         </>
       )}
 
-      {variant === "posts" && (
+      {variant === 'posts' && (
         <div className="divide-y divide-gray-100">
           {Array.from({ length: rows }).map((_, i) => (
-            <div key={i} className="flex items-center justify-between gap-3 py-3">
+            <div
+              key={i}
+              className="flex items-center justify-between gap-3 py-3"
+            >
               <div
                 className="h-3 bg-gray-200 rounded-full"
                 style={{ width: `${55 + (i % 3) * 12}%` }}
@@ -93,5 +97,5 @@ function SkeletonSection({ rows, variant = "contact" }: SkeletonSectionProps) {
         </div>
       )}
     </div>
-  );
+  )
 }

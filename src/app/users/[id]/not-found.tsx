@@ -1,5 +1,11 @@
-import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
+import Link from 'next/link'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/Card'
 
 export default function UserNotFound() {
   return (
@@ -8,9 +14,7 @@ export default function UserNotFound() {
         <CardHeader>
           <p className="text-5xl font-bold text-gray-800 mb-2">404</p>
           <CardTitle>User not found</CardTitle>
-          <CardDescription>
-            There&apos;s no user with that ID.
-          </CardDescription>
+          <CardDescription>There&apos;s no user with that ID.</CardDescription>
         </CardHeader>
         <CardContent>
           <Link
@@ -22,5 +26,5 @@ export default function UserNotFound() {
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }

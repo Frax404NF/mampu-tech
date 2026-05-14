@@ -1,19 +1,25 @@
-"use client";
+'use client'
 
-import { useEffect } from "react";
-import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
+import { useEffect } from 'react'
+import Link from 'next/link'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/Card'
 
 export default function UserDetailError({
   error,
   reset,
 }: {
-  error: Error & { digest?: string };
-  reset: () => void;
+  error: Error & { digest?: string }
+  reset: () => void
 }) {
   useEffect(() => {
-    console.error("[UserDetail] Error:", error);
-  }, [error]);
+    console.error('[UserDetail] Error:', error)
+  }, [error])
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-2xl">
@@ -41,5 +47,5 @@ export default function UserDetailError({
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }
