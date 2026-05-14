@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 interface UsersTableProps {
   rows: UserRow[];
   todosAvailable: boolean;
+  postsAvailable: boolean;
 }
 
 type SortOrder = "asc" | "desc";
@@ -98,7 +99,7 @@ function TodosProgressCell({ activity }: { activity: UserActivity | null }) {
   );
 }
 
-export default function UsersTable({ rows, todosAvailable }: UsersTableProps) {
+export default function UsersTable({ rows, todosAvailable, postsAvailable }: UsersTableProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [, startTransition] = useTransition();
@@ -317,6 +318,11 @@ export default function UsersTable({ rows, todosAvailable }: UsersTableProps) {
                 <div className="mt-2">
                   <TodosProgressCell activity={row.activity} />
                 </div>
+                <div className="mt-1 text-xs text-gray-500">
+                  {row.postCount !== null
+                    ? `📝 ${row.postCount} posts`
+                    : "📝 posts unavailable"}
+                </div>
               </li>
             ))}
           </ul>
@@ -346,6 +352,7 @@ export default function UsersTable({ rows, todosAvailable }: UsersTableProps) {
                     <th scope="col" className="px-6 py-4 font-semibold">Email</th>
                     <th scope="col" className="px-6 py-4 font-semibold">Website</th>
                     <th scope="col" className="px-6 py-4 font-semibold">Todos</th>
+                    <th scope="col" className="px-6 py-4 font-semibold">Posts</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -382,6 +389,9 @@ export default function UsersTable({ rows, todosAvailable }: UsersTableProps) {
                       </td>
                       <td className="px-6 py-4">
                         <TodosProgressCell activity={row.activity} />
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-600">
+                        {row.postCount ?? "—"}
                       </td>
                     </tr>
                   ))}

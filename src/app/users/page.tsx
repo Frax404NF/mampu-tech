@@ -1,6 +1,7 @@
 import { Suspense } from "react";
-import { ApiError, fetchUsers, fetchTodos } from "@/lib/api";
+import { ApiError, fetchUsers, fetchTodos, fetchPosts } from "@/lib/api";
 import { activityFor, groupTodosByUser } from "@/lib/todos";
+import { groupPostsByUser, postCountFor } from "@/lib/posts";
 import type { UserRow } from "@/types/user";
 import UsersTable from "@/components/users/UsersTable";
 import UserTableSkeleton from "@/components/users/UserTableSkeleton";
@@ -14,18 +15,35 @@ async function fetchTodosOrNull() {
   }
 }
 
+async function fetchPostsOrNull() {
+  try {
+    return await fetchPosts();
+  } catch (err) {
+    if (err instanceof ApiError) return null;
+    throw err;
+  }
+}
+
 async function UsersDataFetcher() {
-  const [users, todos] = await Promise.all([fetchUsers(), fetchTodosOrNull()]);
+  const [users, todos, posts] = await Promise.all([
+    fetchUsers(),
+    fetchTodosOrNull(),
+    fetchPostsOrNull(),
+  ]);
 
   const todosAvailable = todos !== null;
   const todosByUser = todosAvailable ? groupTodosByUser(todos) : null;
 
+  const postsAvailable = posts !== null;
+  const postsByUser = postsAvailable ? groupPostsByUser(posts) : null;
+
   const rows: UserRow[] = users.map((user) => ({
     user,
     activity: todosByUser ? activityFor(todosByUser.get(user.id)) : null,
+    postCount: postsByUser ? postCountFor(postsByUser.get(user.id)) : null,
   }));
 
-  return <UsersTable rows={rows} todosAvailable={todosAvailable} />;
+  return <UsersTable rows={rows} todosAvailable={todosAvailable} postsAvailable={postsAvailable} />;
 }
 
 export default function UsersPage() {
