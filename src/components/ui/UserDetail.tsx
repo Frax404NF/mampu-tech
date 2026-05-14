@@ -1,6 +1,7 @@
 import React from 'react'
+import { avatarColors } from '@/lib/styles'
 
-export function Avatar({ name }: { name: string }) {
+export function Avatar({ name, userId }: { name: string; userId?: number }) {
   const initials = name
     .split(' ')
     .slice(0, 2)
@@ -8,9 +9,16 @@ export function Avatar({ name }: { name: string }) {
     .join('')
     .toUpperCase()
 
+  const bgColor =
+    userId !== undefined
+      ? avatarColors[userId % avatarColors.length]
+      : avatarColors[0]
+
   return (
-    <div className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-      <span className="text-white font-semibold text-sm">{initials}</span>
+    <div
+      className={`w-8 h-8 rounded-full ${bgColor} flex items-center justify-center flex-shrink-0`}
+    >
+      <span className="text-[11px] font-medium text-white">{initials}</span>
     </div>
   )
 }
@@ -24,9 +32,7 @@ export function DetailRow({
 }) {
   return (
     <div className="flex items-baseline gap-4 text-sm">
-      <span className="text-gray-400 w-16 flex-shrink-0 text-xs uppercase tracking-wide">
-        {label}
-      </span>
+      <span className="w-16 flex-shrink-0">{label}</span>
       <div>{children}</div>
     </div>
   )

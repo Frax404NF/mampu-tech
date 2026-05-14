@@ -28,18 +28,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <header className="border-b border-gray-200">
-          <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <header className="border-b border-slate-100 bg-white">
+          <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
             <Link
               href="/"
-              className="font-bold text-lg tracking-tight text-gray-900"
+              className="font-semibold text-lg tracking-tight text-slate-900"
             >
               Mampu Tech
             </Link>
             <nav>
               <Link
                 href="/users"
-                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
               >
                 User Repository
               </Link>
@@ -49,8 +49,8 @@ export default function RootLayout({
 
         <main className="flex-1">{children}</main>
 
-        <footer className="border-t border-gray-200 py-6 text-center text-sm text-gray-500">
-          <div className="container mx-auto px-4">
+        <footer className="border-t border-slate-100 py-6 text-center text-sm text-slate-500">
+          <div className="max-w-6xl mx-auto px-6">
             &copy; 2026. Built for Mampu IO Take Home Test.
           </div>
         </footer>

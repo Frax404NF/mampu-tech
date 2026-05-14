@@ -7,7 +7,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Card({ className = '', children, ...props }: CardProps) {
   return (
     <div
-      className={`rounded-xl border border-gray-200 bg-white shadow-sm ${className}`}
+      className={`rounded-xl border border-slate-100 bg-white shadow-sm ${className}`}
       {...props}
     >
       {children}
@@ -17,7 +17,7 @@ export function Card({ className = '', children, ...props }: CardProps) {
 
 export function CardHeader({ className = '', children, ...props }: CardProps) {
   return (
-    <div className={`flex flex-col space-y-1.5 p-6 ${className}`} {...props}>
+    <div className={`flex flex-col space-y-1.5 p-5 ${className}`} {...props}>
       {children}
     </div>
   )
@@ -30,7 +30,7 @@ export function CardTitle({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={`font-semibold leading-none tracking-tight text-gray-900 ${className}`}
+      className={`text-base font-medium leading-none tracking-tight text-slate-900 ${className}`}
       {...props}
     >
       {children}
@@ -44,7 +44,7 @@ export function CardDescription({
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p className={`text-sm text-gray-500 ${className}`} {...props}>
+    <p className={`text-sm text-slate-500 ${className}`} {...props}>
       {children}
     </p>
   )
@@ -52,7 +52,7 @@ export function CardDescription({
 
 export function CardContent({ className = '', children, ...props }: CardProps) {
   return (
-    <div className={`p-6 pt-0 ${className}`} {...props}>
+    <div className={`p-5 pt-0 ${className}`} {...props}>
       {children}
     </div>
   )
@@ -60,7 +60,7 @@ export function CardContent({ className = '', children, ...props }: CardProps) {
 
 export function CardFooter({ className = '', children, ...props }: CardProps) {
   return (
-    <div className={`flex items-center p-6 pt-0 ${className}`} {...props}>
+    <div className={`flex items-center p-5 pt-0 ${className}`} {...props}>
       {children}
     </div>
   )
