@@ -54,14 +54,10 @@ async function UsersDataFetcher() {
 
 export default function UsersPage() {
   return (
-    <div className="container mx-auto px-4 py-12 max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-          Tech Team Directory
-        </h1>
-        <p className="mt-2 text-gray-500">
-          Manage and view all users of your organization.
-        </p>
+    <div className="max-w-6xl mx-auto px-6 pt-8 pb-12">
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold text-slate-900">Users</h1>
+        <p className="mt-1 text-sm text-slate-500">Browse and search your team.</p>
       </div>
 
       <Suspense fallback={<UserTableSkeleton />}>
