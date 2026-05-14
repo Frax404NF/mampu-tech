@@ -1,101 +1,110 @@
+/**
+ * Skeleton loader for the user detail page.
+ * Structure mirrors UserDetailPage exactly to prevent layout shift on load.
+ */
 export function UserDetailSkeleton() {
   return (
     <div
       role="status"
       aria-label="Loading user profile"
-      className="space-y-5 animate-pulse"
+      className="animate-pulse"
     >
-      {/* Back link shimmer */}
-      <div className="h-4 w-32 bg-slate-200 rounded-full" />
+      {/* Back button shimmer */}
+      <div className="h-4 w-28 bg-slate-200 rounded mb-6" />
 
-      {/* Avatar + name card */}
-      <div className="bg-white border border-slate-100 rounded-xl p-8">
-        <div className="flex items-start gap-5">
+      {/* ── Hero card ──────────────────────────────────────────────────────── */}
+      <div className="bg-white border border-slate-100 rounded-xl shadow-sm p-6 mb-4">
+        {/* Avatar + name row */}
+        <div className="flex items-start gap-4 mb-5">
           <div className="w-14 h-14 rounded-full bg-slate-200 flex-shrink-0" />
-          <div className="space-y-2 flex-1 pt-1">
-            <div className="h-5 w-48 bg-slate-200 rounded-full" />
-            <div className="h-3.5 w-28 bg-slate-100 rounded-full" />
+          <div className="space-y-2 pt-1 min-w-0 flex-1">
+            <div className="h-5 w-48 bg-slate-200 rounded" />
+            <div className="h-3.5 w-36 bg-slate-100 rounded" />
+          </div>
+        </div>
+
+        {/* 3-col meta grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {/* Contact */}
+          <div className="pt-4 border-t border-slate-100 space-y-2">
+            <div className="h-2.5 w-14 bg-slate-200 rounded" />
+            <div className="h-3 w-40 bg-slate-100 rounded" />
+            <div className="h-3 w-32 bg-slate-100 rounded" />
+          </div>
+          {/* Company */}
+          <div className="pt-4 border-t border-slate-100 space-y-2">
+            <div className="h-2.5 w-16 bg-slate-200 rounded" />
+            <div className="h-3 w-36 bg-slate-100 rounded" />
+            <div className="h-3 w-44 bg-slate-100 rounded" />
+          </div>
+          {/* Address */}
+          <div className="pt-4 border-t border-slate-100 space-y-2">
+            <div className="h-2.5 w-14 bg-slate-200 rounded" />
+            <div className="h-3 w-40 bg-slate-100 rounded" />
+            <div className="h-3 w-28 bg-slate-100 rounded" />
           </div>
         </div>
       </div>
 
-      <SkeletonSection variant="contact" rows={3} />
-      <SkeletonSection variant="company" rows={2} />
-      <SkeletonSection variant="address" rows={2} />
-      <SkeletonSection variant="todos" rows={5} />
-      <SkeletonSection variant="posts" rows={4} />
-    </div>
-  )
-}
-
-interface SkeletonSectionProps {
-  rows: number
-  variant?: 'contact' | 'company' | 'address' | 'todos' | 'posts'
-}
-
-function SkeletonSection({ rows, variant = 'contact' }: SkeletonSectionProps) {
-  const isDetailRow =
-    variant === 'contact' || variant === 'company' || variant === 'address'
-
-  return (
-    <div className="bg-white border border-slate-100 rounded-xl p-6">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-5">
-        <div className="h-3 w-20 bg-slate-200 rounded-full" />
-        {(variant === 'todos' || variant === 'posts') && (
-          <div className="h-3 w-12 bg-slate-100 rounded-full" />
-        )}
-      </div>
-
-      {isDetailRow && (
-        <div className="space-y-4">
-          {Array.from({ length: rows }).map((_, i) => (
-            <div key={i} className="flex items-baseline gap-4">
-              <div className="w-16 h-3 bg-slate-100 rounded-full flex-shrink-0" />
-              <div
-                className="h-3 bg-slate-200 rounded-full"
-                style={{ width: `${55 + (i % 3) * 15}%` }}
-              />
+      {/* ── Posts + Todos — 2-col grid ─────────────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Posts skeleton */}
+        <div className="bg-white border border-slate-100 rounded-xl shadow-sm p-5">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <div className="h-3.5 w-10 bg-slate-200 rounded" />
+              <div className="h-5 w-16 bg-slate-100 rounded-full" />
             </div>
-          ))}
-        </div>
-      )}
-
-      {variant === 'todos' && (
-        <>
-          {/* Progress summary shimmer */}
-          <div className="h-3 w-48 bg-slate-100 rounded-full mb-4" />
-          <div className="space-y-3">
-            {Array.from({ length: rows }).map((_, i) => (
-              <div key={i} className="flex items-start gap-3 py-1">
-                <div className="w-4 h-4 bg-slate-200 rounded flex-shrink-0 mt-0.5" />
-                <div
-                  className="h-3 bg-slate-200 rounded-full"
-                  style={{ width: `${60 + (i % 3) * 12}%` }}
-                />
+            <div className="h-3 w-12 bg-slate-100 rounded" />
+          </div>
+          {/* Post rows */}
+          <div className="divide-y divide-slate-100">
+            {[70, 55, 80].map((w, i) => (
+              <div key={i} className="py-3 first:pt-0 space-y-1.5">
+                <div className={`h-3.5 bg-slate-200 rounded`} style={{ width: `${w}%` }} />
+                <div className="h-2.5 w-full bg-slate-100 rounded" />
+                <div className="h-2.5 w-4/5 bg-slate-100 rounded" />
               </div>
             ))}
           </div>
-          <div className="h-3 w-24 bg-slate-100 rounded-full mt-4" />
-        </>
-      )}
-
-      {variant === 'posts' && (
-        <div className="divide-y divide-slate-100">
-          {Array.from({ length: rows }).map((_, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between gap-3 py-3"
-            >
-              <div
-                className="h-3 bg-slate-200 rounded-full"
-                style={{ width: `${55 + (i % 3) * 12}%` }}
-              />
-              <div className="w-3 h-3 bg-slate-100 rounded-full flex-shrink-0" />
-            </div>
-          ))}
+          {/* Footer */}
+          <div className="mt-3 pt-3 border-t border-slate-100">
+            <div className="h-6 w-full bg-slate-100 rounded-lg" />
+          </div>
         </div>
-      )}
+
+        {/* Todos skeleton */}
+        <div className="bg-white border border-slate-100 rounded-xl shadow-sm p-5">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <div className="h-3.5 w-10 bg-slate-200 rounded" />
+              <div className="h-5 w-14 bg-slate-100 rounded-full" />
+              <div className="h-5 w-16 bg-slate-100 rounded-full" />
+            </div>
+            <div className="h-3 w-12 bg-slate-100 rounded" />
+          </div>
+          {/* Tab bar */}
+          <div className="flex gap-4 border-b border-slate-100 mb-4 pb-2">
+            <div className="h-3 w-14 bg-slate-200 rounded" />
+            <div className="h-3 w-18 bg-slate-100 rounded" />
+          </div>
+          {/* Todo rows */}
+          <div className="space-y-3">
+            {[65, 80, 55].map((w, i) => (
+              <div key={i} className="flex items-center gap-2.5">
+                <div className="w-4 h-4 rounded bg-slate-200 flex-shrink-0" />
+                <div className="h-3 bg-slate-200 rounded" style={{ width: `${w}%` }} />
+              </div>
+            ))}
+          </div>
+          {/* Footer */}
+          <div className="mt-3 pt-3 border-t border-slate-100">
+            <div className="h-6 w-full bg-slate-100 rounded-lg" />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

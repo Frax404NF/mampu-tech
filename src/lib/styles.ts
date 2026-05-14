@@ -1,4 +1,12 @@
-/** Badge variant → Tailwind classes. Used when variant is a runtime value. */
+/** Section label (formerly "overline") — small uppercase tracking label */
+export const sectionLabel = 'section-label'
+
+
+/**
+ * Badge variant → combined CSS class string for runtime variant selection.
+ * Each value composes the base `.badge` class with a variant modifier.
+ * Usage: `<span className={badgeVariants.green}>5 done</span>`
+ */
 export const badgeVariants = {
   blue:  'badge badge-blue',
   green: 'badge badge-green',

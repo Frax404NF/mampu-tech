@@ -55,8 +55,8 @@
   }
 
   /* ── Typography helpers ───────────────────────────────────────────────── */
-  .overline {
-    @apply text-[11px] font-medium uppercase tracking-wide text-slate-400;
+  .section-label {
+    @apply text-[11px] font-medium uppercase tracking-wide text-slate-500;
   }
 
   /* ── Table ────────────────────────────────────────────────────────────── */

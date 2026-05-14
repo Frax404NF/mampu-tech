@@ -1,14 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import Link from 'next/link'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/Card'
+import { BackButton } from '@/components/ui/BackButton'
 
 export default function UserDetailError({
   error,
@@ -22,30 +15,38 @@ export default function UserDetailError({
   }, [error])
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-2xl">
-      <Card className="text-center py-8">
-        <CardHeader>
-          <CardTitle>Something went wrong</CardTitle>
-          <CardDescription>
-            We couldn&apos;t load this user&apos;s profile. This is likely a
-            temporary issue.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-2">
+    <div className="max-w-4xl mx-auto px-6 pt-8 pb-12">
+      <BackButton label="Back to users" fallbackHref="/users" />
+      <div className="bg-red-50 border border-red-200 rounded-xl p-8 text-center">
+        <svg
+          className="w-8 h-8 text-red-400 mx-auto mb-3"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <p className="text-sm font-medium text-red-800 mb-1">
+          Failed to load profile
+        </p>
+        <p className="text-xs text-red-600 mb-5">
+          We couldn&apos;t fetch this user&apos;s data. This is likely temporary.
+        </p>
+        <div className="flex items-center justify-center gap-3">
           <button
             onClick={reset}
-            className="px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-700 text-white text-sm font-medium transition-colors"
+            className="btn btn-primary text-xs px-4 py-2"
           >
             Try again
           </button>
-          <Link
-            href="/users"
-            className="px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-sm font-medium transition-colors"
-          >
-            Back to Directory
-          </Link>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

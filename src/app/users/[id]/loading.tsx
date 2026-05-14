@@ -2,7 +2,7 @@ import { UserDetailSkeleton } from '@/components/users/UserDetailSkeleton'
 
 export default function Loading() {
   return (
-    <div className="container mx-auto px-4 py-12 max-w-2xl">
+    <div className="max-w-4xl mx-auto px-6 pt-8 pb-12">
       <UserDetailSkeleton />
     </div>
   )
