@@ -13,8 +13,8 @@ import {
   CardDescription,
 } from '@/components/ui/Card'
 import { Avatar, DetailRow, BackIcon } from '@/components/ui/UserDetail'
-import UserTodosSection from '@/components/users/UserTodosSection'
-import UserPostsSection from '@/components/users/UserPostsSection'
+import { UserTodosSection } from '@/components/users/UserTodosSection'
+import { UserPostsSection } from '@/components/users/UserPostsSection'
 
 function parseUserId(id: string): number | null {
   const n = Number(id)

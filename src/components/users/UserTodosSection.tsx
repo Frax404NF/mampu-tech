@@ -77,7 +77,7 @@ function GroupHeading({
   )
 }
 
-export default function UserTodosSection({ todos }: Props) {
+export function UserTodosSection({ todos }: Props) {
   const [expanded, setExpanded] = useState(false)
 
   if (todos === null) {

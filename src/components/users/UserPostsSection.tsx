@@ -7,7 +7,7 @@ interface Props {
   posts: Post[] | null
 }
 
-export default function UserPostsSection({ posts }: Props) {
+export function UserPostsSection({ posts }: Props) {
   const [listExpanded, setListExpanded] = useState(false)
   // Fix 1 & 7: first post open by default — signals interactivity, rest collapsed
   const [expanded, setExpanded] = useState<Set<number>>(

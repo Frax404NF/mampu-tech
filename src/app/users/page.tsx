@@ -3,8 +3,8 @@ import { ApiError, fetchUsers, fetchTodos, fetchPosts } from '@/lib/api'
 import { activityFor, groupTodosByUser } from '@/lib/todos'
 import { groupPostsByUser, postCountFor } from '@/lib/posts'
 import type { UserRow } from '@/types/user'
-import UsersTable from '@/components/users/UsersTable'
-import UserTableSkeleton from '@/components/users/UserTableSkeleton'
+import { UsersTable } from '@/components/users/UsersTable'
+import { UserTableSkeleton } from '@/components/users/UserTableSkeleton'
 
 async function fetchTodosOrNull() {
   try {

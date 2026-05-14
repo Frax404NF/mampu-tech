@@ -112,7 +112,7 @@ function TodosProgressCell({ activity }: { activity: UserActivity | null }) {
   )
 }
 
-export default function UsersTable({
+export function UsersTable({
   rows,
   todosAvailable,
   postsAvailable,

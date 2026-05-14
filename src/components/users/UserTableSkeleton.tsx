@@ -1,6 +1,6 @@
 const SKELETON_ROW_COUNT = 6
 
-export default function UserTableSkeleton() {
+export function UserTableSkeleton() {
   return (
     <div role="status" aria-label="Loading users" className="animate-pulse">
       {/* Controls bar shimmer */}

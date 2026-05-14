@@ -18,7 +18,7 @@ export default function UsersError({
   reset: () => void
 }) {
   useEffect(() => {
-    console.error(error)
+    console.error('[Users] Error:', error)
   }, [error])
 
   return (
